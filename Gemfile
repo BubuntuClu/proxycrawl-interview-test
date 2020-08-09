@@ -36,12 +36,16 @@ gem 'sidekiq'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'nokogiri'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'rspec-rails'
   gem 'pry'
+  gem 'webmock'
+  gem 'database_cleaner'
 end
 
 group :development do
