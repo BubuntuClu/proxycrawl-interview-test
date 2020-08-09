@@ -1,0 +1,2 @@
+class AmazonGood < ApplicationRecord
+end
