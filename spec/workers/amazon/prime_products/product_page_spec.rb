@@ -41,15 +41,15 @@ RSpec.describe Amazon::PrimeProductParseWorker do
       end
 
       it 'updates old file' do
-        expect(amazon_good.meta_info).to be nil
-        expect(amazon_good.general_info).to be nil
+        old_meta = amazon_good.meta_info
+        old_general = amazon_good.general_info
 
         subject.perform('/test_url')
 
         amazon_good.reload
 
-        expect(amazon_good.meta_info).not_to be nil
-        expect(amazon_good.general_info).not_to be nil
+        expect(amazon_good.meta_info).not_to eq old_meta
+        expect(amazon_good.general_info).not_to eq old_general
       end
     end
   end
