@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: proxycrawl-interview-test_development
+
+test:
+  <<: *default
+  database: proxycrawl-interview-test_test
+
+production:
+  <<: *default
+  database: proxycrawl-interview-test_production
+  username: proxycrawl-interview-test
+  password: <%= ENV['PROXYCRAWL-INTERVIEW-TEST_DATABASE_PASSWORD'] %>
