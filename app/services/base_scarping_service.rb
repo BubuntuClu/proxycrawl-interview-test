@@ -1,5 +1,5 @@
 require 'open-uri'
 
-class Amazon::BaseScarpingService
+class BaseScarpingService
   PROXY_URL = 'https://api.proxycrawl.com'
 end

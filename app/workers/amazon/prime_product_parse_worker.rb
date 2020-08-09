@@ -1,11 +1,7 @@
-class Amazon::PrimeProductParseWorker
-  include Sidekiq::Worker
-
-  MAIN_DOMAIN = 'https://www.amazon.com'
-
+class Amazon::PrimeProductParseWorker < Amazon::BaseAmazonWorker
   def perform(page)
     good_type = 'prime_product'
-    proxy_url = Amazon::BaseScarpingService::PROXY_URL
+    proxy_url = BaseScarpingService::PROXY_URL
     scarping_url = "#{proxy_url}?token=#{ENV['PROXY_TOKEN']}&url=#{MAIN_DOMAIN}#{page}"
     html = open(scarping_url)
     doc = Nokogiri::HTML(html)
