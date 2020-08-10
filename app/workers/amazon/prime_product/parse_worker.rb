@@ -1,4 +1,4 @@
-class Amazon::PrimeProductParseWorker < Amazon::BaseAmazonWorker
+class Amazon::PrimeProduct::ParseWorker < Amazon::BaseAmazonWorker
   def perform(page)
     good_type = 'prime_product'
     proxy_url = BaseScarpingService::PROXY_URL

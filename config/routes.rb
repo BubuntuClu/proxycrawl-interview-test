@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :amazon do
         resources :prime_products, only: %i[index show destroy update]
+        resources :prime_videos, only: %i[index show destroy update]
       end
     end
   end

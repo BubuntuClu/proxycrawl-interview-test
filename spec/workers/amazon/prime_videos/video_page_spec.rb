@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Amazon::PrimeProduct::ParseWorker do
-  context 'load product from amazon into DB' do
+RSpec.describe Amazon::PrimeVideo::ParseWorker do
+  context 'load video from amazon into DB' do
 
-    context 'prime product not exist' do
+    context 'prime video not exist' do
       before do
         stub_request(:get, "https://api.proxycrawl.com/?token=ISv3vDqqVYhWqOe1Tc1Duw&url=https://www.amazon.com/test_url").
           with(
@@ -13,16 +13,16 @@ RSpec.describe Amazon::PrimeProduct::ParseWorker do
               'User-Agent'=>'Ruby'
             }
           ).
-          to_return(status: 200, body: Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/amazon_product_page.html'), 'text/html').read, headers: {})
+          to_return(status: 200, body: Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/amazon_video_page.html'), 'text/html').read, headers: {})
       end
 
-      it 'creates product in data base' do
+      it 'creates video in data base' do
         expect { subject.perform('/test_url') }.to change(AmazonGood, :count).by 1
       end
     end
 
-    context 'prime product exist' do
-      let!(:amazon_good) { create(:amazon_good, rel_canonical: 'https://www.amazon.com/Prime-Products-11-0190-Rocker-Switch/dp/B000BRJVUW', good_type: 'prime_product') }
+    context 'prime video exist' do
+      let!(:amazon_good) { create(:amazon_good, rel_canonical: 'https://www.amazon.com/Midsommar-Florence-Pugh/dp/B07T8K9YSH', good_type: 'prime_video') }
 
       before do
         stub_request(:get, "https://api.proxycrawl.com/?token=ISv3vDqqVYhWqOe1Tc1Duw&url=https://www.amazon.com/test_url").
@@ -33,10 +33,10 @@ RSpec.describe Amazon::PrimeProduct::ParseWorker do
               'User-Agent'=>'Ruby'
             }
           ).
-          to_return(status: 200, body: Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/amazon_product_page.html'), 'text/html').read, headers: {})
+          to_return(status: 200, body: Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/amazon_video_page.html'), 'text/html').read, headers: {})
       end
 
-      it 'does not create new product in database' do
+      it 'does not create new video in database' do
         expect { subject.perform('/test_url') }.to change(AmazonGood, :count).by 0
       end
 

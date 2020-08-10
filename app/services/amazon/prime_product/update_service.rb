@@ -1,6 +1,6 @@
-class Amazon::PrimeProductUpdateService
+class Amazon::PrimeProduct::UpdateService
   def self.call(params)
-    prime_product = ::Amazon::PrimeProductFindService.call(params[:id])
+    prime_product = ::Amazon::PrimeProduct::FindService.call(params[:id])
     prime_product.update(prime_product_params(params))
     prime_product
   end
