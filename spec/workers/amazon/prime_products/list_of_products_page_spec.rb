@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Amazon::PagePrimeProductParseWorker do
+RSpec.describe Amazon::PrimeProduct::PageParseWorker do
   context 'list of products' do
 
     context 'put in queue products on the page' do
@@ -16,14 +16,14 @@ RSpec.describe Amazon::PagePrimeProductParseWorker do
           to_return(status: 200, body: Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/amazon_prime_products_first_page.html'), 'text/html').read, headers: {})
       end
 
-      it 'calls Amazon::PrimeProductParseWorker' do
-        expect(Amazon::PrimeProductParseWorker).to receive(:perform_async).
+      it 'calls Amazon::PrimeProduct::ParseWorker' do
+        expect(Amazon::PrimeProduct::ParseWorker).to receive(:perform_async).
           with(String).exactly(16).times
         subject.perform('/test_url')
       end
 
       it 'calls self for next page' do
-        expect(Amazon::PagePrimeProductParseWorker).to receive(:perform_async).
+        expect(Amazon::PrimeProduct::PageParseWorker).to receive(:perform_async).
           with(String).exactly(1).times
         subject.perform('/test_url')
       end

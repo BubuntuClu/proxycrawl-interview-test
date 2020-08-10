@@ -1,4 +1,4 @@
-class Amazon::PagePrimeProductParseWorker < Amazon::BaseAmazonWorker
+class Amazon::PrimeProduct::PageParseWorker < Amazon::BaseAmazonWorker
   def perform(page)
     proxy_url = BaseScarpingService::PROXY_URL
     scarping_url = "#{proxy_url}?token=#{ENV['PROXY_TOKEN']}&url=#{MAIN_DOMAIN}#{page}"
@@ -11,10 +11,10 @@ class Amazon::PagePrimeProductParseWorker < Amazon::BaseAmazonWorker
 
     rows_per_page.each do |row|
       product_url = row.attribute('href').value
-      Amazon::PrimeProductParseWorker.perform_async(product_url)
+      Amazon::PrimeProduct::ParseWorker.perform_async(product_url)
     end
 
     next_page = doc.at('.a-last')&.children&.first&.attribute('href')&.value
-    Amazon::PagePrimeProductParseWorker.perform_async(next_page) if next_page.present?
+    Amazon::PrimeProduct::PageParseWorker.perform_async(next_page) if next_page.present?
   end
 end
