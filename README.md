@@ -1,24 +1,6 @@
-# README
+To set application you have to `bundle` and then create file `.env`
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+In `.env` file you must place valued for PROXY_TOKEN, AUTH_USER, AUTH_PASSWORD
+PROXY_TOKEN - Token from https://proxycrawl.com/
+AUTH_USER - user for API
+AUTH_PASSWORD - password for API
